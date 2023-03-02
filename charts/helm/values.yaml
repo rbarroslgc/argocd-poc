@@ -1,0 +1,27 @@
+replicaCount: 3
+image:
+  pullPolicy: IfNotPresent
+  repository: 274182154370.dkr.ecr.us-east-1.amazonaws.com/argocd-poc
+  version: main
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  create: false
+  name:
+podSecurityContext: {}
+securityContext: {}
+service:
+  type: LoadBalancer
+  port: 80
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
