@@ -1,4 +1,4 @@
-replicaCount: 3
+replicaCount: 4
 image:
   pullPolicy: IfNotPresent
   repository: 274182154370.dkr.ecr.us-east-1.amazonaws.com/argocd-poc
