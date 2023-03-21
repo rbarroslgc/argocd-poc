@@ -2,7 +2,7 @@ replicaCount: 4
 image:
   pullPolicy: IfNotPresent
   repository: 274182154370.dkr.ecr.us-east-1.amazonaws.com/octo-test
-  version: main
+  version: main-606e3b8
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
