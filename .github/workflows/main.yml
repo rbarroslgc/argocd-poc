@@ -36,10 +36,10 @@ jobs:
       run: |
         # Build a docker container and push it to ECR
         git_hash=$(git rev-parse --short "$GITHUB_SHA")
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:octo-poc .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ steps.determine_version.outputs.semVer }} .
         echo "Pushing image to ECR..."
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:octo-poc
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:octo-poc"
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ steps.determine_version.outputs.semVer }}
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:${{ steps.determine_version.outputs.semVer }}"
        
     # - name: Update Version
     #   run: |
@@ -53,11 +53,11 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         commit_message: Version updated
 
-    - name: Create Octopus Release
-      uses: OctopusDeploy/create-release-action@v1.1.1
-      with:
-        api_key: ${{ secrets.OCTOPUS_API_TOKEN }}
-        project: cicd-eks-poc
-        server: ${{ secrets.OCTOPUS_SERVER_URL }}
-        deploy_to: Dev
-        packages: Deploy container to Kubernetes:cicd-eks-poc:${{ steps.determine_version.outputs.semVer }}
+    # - name: Create Octopus Release
+    #   uses: OctopusDeploy/create-release-action@v1.1.1
+    #   with:
+    #     api_key: ${{ secrets.OCTOPUS_API_TOKEN }}
+    #     project: cicd-eks-poc
+    #     server: ${{ secrets.OCTOPUS_SERVER_URL }}
+    #     deploy_to: Development
+    #     packages: Deploy container to Kubernetes:cicd-eks-poc:${{ steps.determine_version.outputs.semVer }}
