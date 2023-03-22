@@ -22,10 +22,21 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Install Octopus Deploy CLI
-      uses: OctopusDeploy/install-octocli@v1.1.1
+    # - name: Install Octopus Deploy CLI
+    #   uses: OctopusDeploy/install-octocli@v1.1.1
+    #   with:
+    #     version: latest
+
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.14
       with:
-        version: latest
+        versionSpec: 5.x
+
+    - id: determine_version
+      name: Determine Version
+      uses: gittools/actions/gitversion/execute@v0.9.14
+      with:
+        additionalArguments: /overrideconfig mode=Mainline
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
